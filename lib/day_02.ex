@@ -20,20 +20,20 @@ defmodule Day02 do
 
   def brute_force_combination(data, desired_output, noun \\ 0, verb \\ 0) do
 
-    output = data
-             |> List.replace_at(1, noun)
-             |> List.replace_at(2, verb)
-             |> read_program
-             |> Enum.at(0)
-    IO.puts("noun: #{noun} | verb: #{verb} | output: #{output}")
-    cond do
-      output == desired_output -> 100 * noun + verb
-      true -> case {noun, verb} do
-             {noun, verb} when noun < 100 -> brute_force_combination(data, desired_output, noun + 1, verb)
-             {_, verb} when verb < 100 -> brute_force_combination(data, desired_output, 0, verb + 1)
-             _ -> IO.puts("No solution found :(")
-           end
+    all_values = for noun <- 0..99, verb <- 0..99 do
+      output = data
+               |> List.replace_at(1, noun)
+               |> List.replace_at(2, verb)
+               |> read_program
+               |> Enum.at(0)
+
+      [output, noun, verb]
     end
+
+    all_values
+    |> Enum.filter(fn [output | _] -> output == desired_output end)
+    |> hd
+    |> fn [_, noun, verb] -> 100 * noun + verb end.()
   end
 
   @doc ~S"""
