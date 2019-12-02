@@ -1,21 +1,6 @@
-# AoC2019
+# Advent of Code 2019
 
-**TODO: Add description**
+Hey all! 
 
-## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `aoc_2019` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:aoc_2019, "~> 0.1.0"}
-  ]
-end
-```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/aoc_2019](https://hexdocs.pm/aoc_2019).
-
+I want to practice my Elixir skills a bit, so I decided to solve the Advent of Code 2019 tasks using this beautiful
+programming language. If you have better or more idiomatic solutions, please send a PR! :)
