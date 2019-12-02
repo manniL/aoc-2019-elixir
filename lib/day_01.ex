@@ -5,19 +5,15 @@ defmodule Day01 do
 
 
   def part_one() do
-    module_masses = read_data('./inputs/day_01.txt')
-    fuel_needed = module_masses
-                  |> Enum.map(&fuel_for_module_mass/1)
-
-    Enum.sum(fuel_needed)
+    read_data('./inputs/day_01.txt')
+    |> Stream.map(&fuel_for_module_mass/1)
+    |> Enum.sum
   end
 
   def part_two() do
-    module_masses = read_data('./inputs/day_01.txt')
-    fuel_needed = module_masses
-                  |> Enum.map(&recursive_fuel_for_module_mass/1)
-
-    Enum.sum(fuel_needed)
+    read_data('./inputs/day_01.txt')
+    |> Stream.map(&recursive_fuel_for_module_mass/1)
+    |> Enum.sum
   end
 
   defp read_data(path) do
@@ -47,9 +43,7 @@ defmodule Day01 do
       33583
   """
   def fuel_for_module_mass(mass) do
-    mass / 3
-    |> floor
-    |> Kernel.-(2)
+    div(mass, 3) - 2
   end
 
   @doc ~S"""
@@ -73,11 +67,10 @@ defmodule Day01 do
       iex> Day01.recursive_fuel_for_module_mass(100756)
       50346
   """
-  def recursive_fuel_for_module_mass(mass, sum \\ 0) do
-    fuel_needed = fuel_for_module_mass(mass)
-    case {mass, sum} do
-      {mass, sum} when mass <= 0 -> sum - mass
-      {mass, sum} -> recursive_fuel_for_module_mass(fuel_needed, sum + fuel_needed)
+  def recursive_fuel_for_module_mass(mass) do
+    case fuel_for_module_mass(mass) do
+      needed when needed > 0 -> needed + recursive_fuel_for_module_mass(needed)
+      _ -> 0
     end
   end
 end
